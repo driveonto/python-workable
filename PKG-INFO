@@ -1,0 +1,18 @@
+Metadata-Version: 1.1
+Name: python-workable
+Version: 0.0.6
+Summary: Python API library for the Workable platform.
+Home-page: http://packages.python.org/python-workable
+Author: Yiannis Inglessis
+Author-email: negtheone@gmail.com
+License: MIT
+Description: Overview
+        ========
+        Python API library for the Workable platform.
+        
+Keywords: workable api
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: License :: OSI Approved :: MIT License
