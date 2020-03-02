@@ -1,6 +1,7 @@
 import requests
 import os.path
 import json
+import urllib.parse
 
 
 class Error(Exception):
@@ -10,7 +11,7 @@ class Error(Exception):
 class Workable(object):
     api_url = 'https://www.workable.com/spi/v3/accounts/'
 
-    def __init__(self, token=None, subdomain=None):
+    def __init__(self, token=None, subdomain=None, **kwargs):
         if token is None:
             token = self.read_token()
         if token is None:
@@ -18,6 +19,10 @@ class Workable(object):
         self.token = token
         if subdomain is None:
             subdomain = self.read_subdomain()
+        if kwargs:
+            self.kwargs = kwargs
+        else:
+            self.kwargs = None
         self.acounts = Accounts(self)
         self.members = Members(self, subdomain, 'members')
         self.recruiters = Recruiters(self, subdomain, 'recruiters')
@@ -54,7 +59,10 @@ class Workable(object):
             'user-agent': 'Python-Workable/0.0.5',
             'authorization': 'Bearer ' + self.token
         }
-        request = requests.get('%s%s' % (self.api_url, url), headers=headers)
+        request_url = '%s%s' % (self.api_url, url)
+        if self.kwargs:
+            request_url += "?%s" % urllib.parse.urlencode(self.kwargs)
+        request = requests.get(request_url, headers=headers)
         return request.json()
 
 
